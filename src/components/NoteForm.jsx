@@ -1,16 +1,7 @@
-// src/components/NoteForm.jsx
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { getCurrentTimestamp } from "../utils";
 
-const CATEGORIES = ["Personal", "Work", "Ideas", "Spirituality", "Leadership", "Journalling", "Other"];
-
-export default function NoteForm({
-  onNoteAdded,
-  onNoteUpdated,
-  editingNote,
-  onCancel,
-}) {
+export default function NoteForm({ onNoteAdded, onNoteUpdated, editingNote, onCancel, categories }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -32,14 +23,12 @@ export default function NoteForm({
   }, [editingNote]);
 
   useEffect(() => {
-    if (titleRef.current) {
-      titleRef.current.focus();
-    }
+    if (titleRef.current) titleRef.current.focus();
   }, []);
 
   const isEditing = !!editingNote;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const now = getCurrentTimestamp();
     const noteData = {
@@ -47,74 +36,40 @@ export default function NoteForm({
       category,
       content,
       cover,
-      ...(isEditing ? { updatedAt: now } : { createdAt: now, updatedAt: now }),
+      archived: false,
+      deleted: false,
+      ...(isEditing ? { id: editingNote.id, updatedAt: now } : { createdAt: now, updatedAt: now }),
     };
-
-    try {
-      if (isEditing) {
-        const response = await axios.put(
-          `http://localhost:3001/notes/${editingNote.id}`,
-          { ...editingNote, ...noteData }
-        );
-        onNoteUpdated(response.data);
-      } else {
-        const response = await axios.post("http://localhost:3001/notes", noteData);
-        onNoteAdded(response.data);
-      }
-    } catch (err) {
-      console.error(isEditing ? "Update failed:" : "Create failed:", err);
-      alert(isEditing ? "Failed to update note" : "Failed to add note");
+    if (isEditing) {
+      onNoteUpdated(noteData);
+    } else {
+      onNoteAdded(noteData);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <h2>{isEditing ? "Edit Note" : "Create New Note"}</h2>
-        <button type="button" onClick={onCancel} className="cancel-btn">
-          ← Back
-        </button>
-      </div>
-
+      <button type="button" onClick={onCancel} className="cancel-btn">
+        ← Back
+      </button>
+      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        {isEditing ? "Edit Note" : "Create New Note"}
+      </h2>
       <div className="form-group">
-        <input
-          ref={titleRef}
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+        <input ref={titleRef} type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
       </div>
       <div className="form-group">
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-        >
+        <select value={category} onChange={(e) => setCategory(e.target.value)} required>
           <option value="">Select a category</option>
-          {CATEGORIES.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
+          {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
       </div>
       <div className="form-group">
-        <input
-          type="url"
-          placeholder="Cover Image URL (optional)"
-          value={cover}
-          onChange={(e) => setCover(e.target.value)}
-        />
+        <input type="url" placeholder="Cover Image URL (optional)" value={cover} onChange={(e) => setCover(e.target.value)} />
       </div>
       <div className="form-group">
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
+        <textarea placeholder="Content (use #hashtags for labels)" value={content} onChange={(e) => setContent(e.target.value)} required />
       </div>
-
       <button type="submit" className="submit-btn">
         {isEditing ? "Update Note" : "Add Note"}
       </button>

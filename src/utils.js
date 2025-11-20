@@ -1,10 +1,10 @@
-// src/utils.js
 export const getCurrentTimestamp = () => {
   return new Date().toISOString();
 };
 
-export const truncateText = (text, maxLength = 200) => {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '…';
+export const extractHashtags = (text) => {
+  if (!text) return [];
+  const regex = /#(\w+)/g;
+  const matches = text.match(regex);
+  return matches ? matches.map(tag => tag.slice(1)) : [];
 };
