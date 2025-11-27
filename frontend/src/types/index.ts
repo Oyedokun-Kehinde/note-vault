@@ -1,11 +1,14 @@
 export interface User {
-  _id: string;
+  id: string;
   username: string;
   email: string;
   fullName?: string;
   avatar?: string;
   bio?: string;
-  preferences: {
+  theme?: 'light' | 'dark' | 'auto';
+  defaultView?: 'grid' | 'list';
+  notificationsEnabled?: boolean;
+  preferences?: {
     theme: 'light' | 'dark' | 'auto';
     defaultView: 'grid' | 'list';
     notificationsEnabled: boolean;
@@ -15,10 +18,10 @@ export interface User {
 }
 
 export interface Note {
-  _id: string;
+  id: string;
   title: string;
   content: string;
-  category: Category;
+  category: string;
   tags: string[];
   cover?: string;
   color?: string;
@@ -26,12 +29,13 @@ export interface Note {
   isFavorite: boolean;
   archived: boolean;
   deleted: boolean;
-  deletedAt?: string;
+  deletedAt?: string | null;
   userId: string;
-  sharedWith: SharedUser[];
-  reminder?: string;
-  attachments: Attachment[];
-  checkList: CheckListItem[];
+  sharedWith?: SharedUser[];
+  reminder?: string | null;
+  attachments?: Attachment[];
+  checkList?: CheckListItem[];
+  viewCount?: number;
   createdAt: string;
   updatedAt: string;
 }
