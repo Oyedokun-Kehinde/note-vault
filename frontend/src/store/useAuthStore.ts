@@ -90,7 +90,9 @@ const useAuthStore = create<AuthState>()(
       },
 
       checkAuth: async () => {
-        const token = localStorage.getItem('token');
+        const state = get();
+        const token = state.token || localStorage.getItem('token');
+        
         if (!token) {
           set({ isAuthenticated: false });
           return false;

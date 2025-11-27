@@ -16,12 +16,14 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { checkAuth, isAuthenticated } = useAuthStore();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
   useEffect(() => {
     // Only check auth once on mount
     checkAuth();
-  }, []); // Empty deps - run once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - run once on mount only
 
   return (
     <Routes>
