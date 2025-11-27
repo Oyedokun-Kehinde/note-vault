@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.86.0",
     "@tiptap/extension-color": "^3.11.0",
     "@tiptap/extension-highlight": "^3.11.0",
     "@tiptap/extension-image": "^3.11.0",
@@ -22,6 +23,8 @@
     "axios": "^1.13.2",
     "date-fns": "^4.1.0",
     "framer-motion": "^10.16.16",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
     "lucide-react": "^0.294.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -31,6 +34,7 @@
     "react-router": "^7.9.6",
     "react-router-dom": "^7.9.6",
     "recharts": "^2.10.3",
+    "turndown": "^7.2.2",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
@@ -39,6 +43,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@types/turndown": "^5.0.6",
     "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.22",
     "eslint": "^9.39.1",

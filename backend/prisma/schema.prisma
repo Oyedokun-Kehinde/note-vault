@@ -1,0 +1,216 @@
+// This is your Prisma schema file for NoteVault with Supabase PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model with authentication and preferences
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  fullName  String?
+  avatar    String?
+  bio       String?
+  
+  // Preferences
+  theme                  String   @default("auto") // light, dark, auto
+  defaultView            String   @default("grid") // grid, list
+  notificationsEnabled   Boolean  @default(true)
+  
+  // Relations
+  notes          Note[]
+  sharedNotes    SharedNote[]
+  tags           Tag[]
+  noteTemplates  NoteTemplate[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([username])
+  @@map("users")
+}
+
+// Note model with full features
+model Note {
+  id          String   @id @default(uuid())
+  title       String
+  content     String   @db.Text
+  contentType String   @default("html") // html, markdown, plain
+  
+  // Organization
+  category    String
+  tags        String[]
+  color       String?
+  cover       String?
+  
+  // Status flags
+  isPinned    Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  archived    Boolean  @default(false)
+  deleted     Boolean  @default(false)
+  deletedAt   DateTime?
+  
+  // Metadata
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Advanced features
+  reminder    DateTime?
+  viewCount   Int      @default(0)
+  
+  // Relations
+  sharedWith  SharedNote[]
+  attachments Attachment[]
+  checkList   CheckListItem[]
+  
+  // Template info
+  templateId  String?
+  template    NoteTemplate? @relation(fields: [templateId], references: [id])
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([category])
+  @@index([isPinned])
+  @@index([isFavorite])
+  @@index([archived])
+  @@index([deleted])
+  @@map("notes")
+}
+
+// Note sharing with permissions
+model SharedNote {
+  id         String   @id @default(uuid())
+  noteId     String
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  permission String   @default("view") // view, edit
+  sharedAt   DateTime @default(now())
+
+  @@unique([noteId, userId])
+  @@index([userId])
+  @@index([noteId])
+  @@map("shared_notes")
+}
+
+// File attachments for notes
+model Attachment {
+  id        String   @id @default(uuid())
+  noteId    String
+  note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  
+  name      String
+  url       String
+  type      String   // image, pdf, doc, etc.
+  size      Int      // in bytes
+  
+  uploadedAt DateTime @default(now())
+
+  @@index([noteId])
+  @@map("attachments")
+}
+
+// Checklist items for notes
+model CheckListItem {
+  id        String   @id @default(uuid())
+  noteId    String
+  note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  
+  text      String
+  completed Boolean  @default(false)
+  order     Int      @default(0)
+  
+  createdAt DateTime @default(now())
+
+  @@index([noteId])
+  @@map("checklist_items")
+}
+
+// Tags for organization
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String?
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  usageCount Int     @default(0)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("tags")
+}
+
+// Note templates for quick creation
+model NoteTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  category    String
+  content     String   @db.Text
+  cover       String?
+  tags        String[]
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // How many times used
+  usageCount  Int      @default(0)
+  
+  // Notes created from this template
+  notes       Note[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@map("note_templates")
+}
+
+// Analytics and activity tracking
+model Activity {
+  id          String   @id @default(uuid())
+  userId      String
+  action      String   // created, updated, deleted, shared, exported
+  entityType  String   // note, template
+  entityId    String
+  metadata    Json?    // Additional data
+  
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("activities")
+}
+
+// Export history
+model Export {
+  id         String   @id @default(uuid())
+  userId     String
+  noteId     String?
+  format     String   // pdf, markdown, json
+  status     String   @default("pending") // pending, completed, failed
+  fileUrl    String?
+  error      String?
+  
+  createdAt  DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([userId])
+  @@index([status])
+  @@map("exports")
+}
