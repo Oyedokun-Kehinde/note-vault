@@ -6,7 +6,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const prisma = require('./prisma/client');
-// const authRoutes = require('./routes/auth.routes.js');
+const authRoutes = require('./routes/auth.routes.prisma');
 // const noteRoutes = require('./routes/note.routes.js');
 // const userRoutes = require('./routes/user.routes.js');
 // const tagRoutes = require('./routes/tag.routes.js');
@@ -71,8 +71,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes (temporarily disabled during migration)
-// app.use('/api/auth', authRoutes);
+// API Routes
+app.use('/api/auth', authRoutes);
 // app.use('/api/notes', noteRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/tags', tagRoutes);
