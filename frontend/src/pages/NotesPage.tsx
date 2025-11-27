@@ -54,7 +54,7 @@ export default function NotesPage() {
 
   const handleUpdate = async () => {
     if (!editingNote || !formData.title) return;
-    await updateNote(editingNote._id, {
+    await updateNote(editingNote.id, {
       title: formData.title,
       content: formData.content,
       category: formData.category as Category,
@@ -74,7 +74,7 @@ export default function NotesPage() {
     setFormData({
       title: note.title,
       content: note.content,
-      category: note.category,
+      category: note.category as Category | '',
       cover: note.cover || '',
     });
     setIsCreating(true);
@@ -220,7 +220,7 @@ export default function NotesPage() {
           <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}>
             {filteredNotes.map((note) => (
               <div
-                key={note._id}
+                key={note.id}
                 className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 cursor-pointer"
                 onClick={() => openEdit(note)}
               >
@@ -241,13 +241,13 @@ export default function NotesPage() {
                 />
                 <div className="flex gap-2 mt-4">
                   <button
-                    onClick={(e) => { e.stopPropagation(); togglePin(note._id); }}
+                    onClick={(e) => { e.stopPropagation(); togglePin(note.id); }}
                     className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200"
                   >
                     {note.isPinned ? 'Unpin' : 'Pin'}
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); toggleFavorite(note._id); }}
+                    onClick={(e) => { e.stopPropagation(); toggleFavorite(note.id); }}
                     className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200"
                   >
                     {note.isFavorite ? '❤️' : '🤍'}
@@ -257,7 +257,6 @@ export default function NotesPage() {
             ))}
           </div>
         )}
-      </div>
     </div>
   );
 }
