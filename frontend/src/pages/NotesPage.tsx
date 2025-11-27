@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Plus, Search, Grid, List } from 'lucide-react';
-import Navbar from '../components/Layout/Navbar';
 import useNoteStore from '../store/useNoteStore';
 import { CATEGORIES } from '../types';
 import RichTextEditor from '../components/Editor/RichTextEditor';
@@ -82,10 +81,7 @@ export default function NotesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Navbar from '../components/Layout/Navbar';
 import useNoteStore from '../store/useNoteStore';
 
 export default function RecycleBin() {
@@ -11,9 +10,7 @@ export default function RecycleBin() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Recycle Bin</h1>
         
         {isLoading ? (
@@ -27,7 +24,7 @@ export default function RecycleBin() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredNotes.map((note) => (
-              <div key={note._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+              <div key={note.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{note.title}</h3>
                 <span className="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full text-sm">
                   {note.category}
@@ -37,7 +34,6 @@ export default function RecycleBin() {
             ))}
           </div>
         )}
-      </div>
     </div>
   );
 }

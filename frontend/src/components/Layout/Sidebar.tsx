@@ -33,19 +33,19 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
 
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard', end: true },
-    { path: '/notes', icon: StickyNote, label: 'All Notes' },
-    { path: '/notes?favorite=true', icon: Star, label: 'Favorites' },
-    { path: '/notes?pinned=true', icon: Pin, label: 'Pinned' },
-    { path: '/archive', icon: Archive, label: 'Archive' },
-    { path: '/trash', icon: Trash2, label: 'Trash' },
-    { path: '/analytics', icon: BarChart3, label: 'Analytics' },
-    { path: '/profile', icon: User, label: 'Profile' },
+    { path: '/notes', icon: StickyNote, label: 'All Notes', end: true },
+    { path: '/favorites', icon: Star, label: 'Favorites', end: true },
+    { path: '/pinned', icon: Pin, label: 'Pinned', end: true },
+    { path: '/archive', icon: Archive, label: 'Archive', end: true },
+    { path: '/recycle-bin', icon: Trash2, label: 'Trash', end: true },
+    { path: '/dashboard', icon: BarChart3, label: 'Analytics', end: true },
+    { path: '/profile', icon: User, label: 'Profile', end: true },
   ];
 
   return (
     <>
       <aside
-        className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-40 ${
+        className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-40 overflow-visible ${
           isCollapsed ? 'w-20' : 'w-64'
         }`}
       >
@@ -75,25 +75,6 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
           )}
         </div>
 
-        {/* User Info */}
-        {!isCollapsed && user && (
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 flex items-center justify-center text-white font-semibold">
-                {user.username?.charAt(0).toUpperCase() || 'U'}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                  {user.username || 'User'}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                  {user.email}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-2">
           {navItems.map((item) => (
@@ -115,7 +96,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
               
               {/* Tooltip when collapsed */}
               {isCollapsed && (
-                <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                <div className="fixed left-20 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[9999] shadow-xl">
                   {item.label}
                   <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
                 </div>
@@ -143,7 +124,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             
             {/* Tooltip when collapsed */}
             {isCollapsed && (
-              <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+              <div className="fixed left-20 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[9999] shadow-xl">
                 Logout
                 <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
               </div>

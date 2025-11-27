@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Mail, Save, LogOut } from 'lucide-react';
-import Navbar from '../components/Layout/Navbar';
 import useAuthStore from '../store/useAuthStore';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
@@ -27,10 +26,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar />
-      
-      <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-4xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
           <div className="text-center mb-8">
             <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 flex items-center justify-center text-white text-4xl font-bold overflow-hidden">
