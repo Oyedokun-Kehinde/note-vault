@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuthStore from './store/useAuthStore';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import MainLayout from './components/Layout/MainLayout';
 import NotesPage from './pages/NotesPage';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
@@ -23,6 +24,7 @@ export default function App() {
 
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path="/login" element={
         isAuthenticated ? <Navigate to="/" replace /> : <Login />
       } />
@@ -30,11 +32,15 @@ export default function App() {
         isAuthenticated ? <Navigate to="/" replace /> : <Register />
       } />
       
-      <Route path="/" element={<ProtectedRoute><NotesPage /></ProtectedRoute>} />
-      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-      <Route path="/archive" element={<ProtectedRoute><Archive /></ProtectedRoute>} />
-      <Route path="/recycle-bin" element={<ProtectedRoute><RecycleBin /></ProtectedRoute>} />
+      {/* Protected Routes with Sidebar Layout */}
+      <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/notes" element={<NotesPage />} />
+        <Route path="/analytics" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/archive" element={<Archive />} />
+        <Route path="/trash" element={<RecycleBin />} />
+      </Route>
       
       <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
     </Routes>
