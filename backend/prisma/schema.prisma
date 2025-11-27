@@ -28,6 +28,7 @@ model User {
   notes          Note[]
   sharedNotes    SharedNote[]
   tags           Tag[]
+  categories     Category[]
   noteTemplates  NoteTemplate[]
   
   createdAt DateTime @default(now())
@@ -153,6 +154,25 @@ model Tag {
   @@unique([userId, name])
   @@index([userId])
   @@map("tags")
+}
+
+// User-defined categories
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  color     String?
+  icon      String?  // emoji or icon name
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  usageCount Int     @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("categories")
 }
 
 // Note templates for quick creation

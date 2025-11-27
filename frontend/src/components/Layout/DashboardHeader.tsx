@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import useAuthStore from '../../store/useAuthStore';
+import useNoteStore from '../../store/useNoteStore';
 import DarkModeToggle from './DarkModeToggle';
 
 interface DashboardHeaderProps {
@@ -9,21 +10,36 @@ interface DashboardHeaderProps {
 
 export default function DashboardHeader({ onToggleSidebar }: DashboardHeaderProps) {
   const { user } = useAuthStore();
+  const { search, setSearch } = useNoteStore();
 
   return (
-    <header className="sticky top-0 z-40 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm mb-6">
-      <div className="flex items-center justify-between h-16 px-6">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <div className="flex items-center gap-4 h-16 px-6">
         {/* Left: Sidebar Toggle */}
         <button
           onClick={onToggleSidebar}
-          className="p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+          className="p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors flex-shrink-0"
           title="Toggle Sidebar"
         >
           <Menu size={24} />
         </button>
 
+        {/* Center: Search Bar */}
+        <div className="flex-1 max-w-2xl">
+          <div className="relative">
+            <Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search notes..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none dark:bg-gray-700 dark:text-white transition-all"
+            />
+          </div>
+        </div>
+
         {/* Right: Dark Mode + User */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-shrink-0">
           {/* Dark Mode Toggle */}
           <DarkModeToggle />
 

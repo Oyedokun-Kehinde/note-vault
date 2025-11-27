@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Home,
@@ -12,10 +12,13 @@ import {
   LogOut,
   Star,
   Pin,
-  Lock as LockIcon
+  Lock as LockIcon,
+  Tag as TagIcon,
+  Hash
 } from 'lucide-react';
 import ConfirmModal from './ConfirmModal';
 import useAuthStore from '../../store/useAuthStore';
+import useNoteStore from '../../store/useNoteStore';
 import DarkModeToggle from './DarkModeToggle';
 
 interface SidebarProps {
@@ -26,10 +29,17 @@ interface SidebarProps {
 export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user, logout } = useAuthStore();
-
+  const { notes } = useNoteStore();
+  
   const handleLogout = () => {
     logout();
   };
+  
+  // Extract unique tags from notes
+  const allTags = notes
+    ?.flatMap(note => note.tags || [])
+    .filter((tag, index, self) => tag && self.indexOf(tag) === index)
+    .slice(0, 10) || []; // Show top 10 tags
 
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard', end: true },
@@ -76,7 +86,8 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+          {/* Main Navigation */}
           {navItems.map((item) => (
             <div key={item.path} className="relative group">
               <NavLink
@@ -103,6 +114,44 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
               )}
             </div>
           ))}
+          
+          {/* Tags Section */}
+          {allTags.length > 0 && (
+            <>
+              <div className="my-4 border-t border-gray-200 dark:border-gray-700" />
+              
+              {!isCollapsed && (
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                  <TagIcon size={14} />
+                  Tags
+                </div>
+              )}
+              
+              {allTags.map((tag) => (
+                <div key={tag} className="relative group">
+                  <button
+                    className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    onClick={() => {
+                      // Filter by tag (you can implement this in noteStore)
+                    }}
+                  >
+                    <Hash size={16} className="text-purple-500" />
+                    {!isCollapsed && (
+                      <span className="text-sm truncate">{tag}</span>
+                    )}
+                  </button>
+                  
+                  {/* Tooltip when collapsed */}
+                  {isCollapsed && (
+                    <div className="fixed left-20 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[9999] shadow-xl">
+                      #{tag}
+                      <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </>
+          )}
         </nav>
 
         {/* Footer */}

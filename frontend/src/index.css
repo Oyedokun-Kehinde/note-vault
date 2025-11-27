@@ -6,7 +6,15 @@
 
 @layer components {
   .ProseMirror {
-    @apply outline-none min-h-[200px] p-4;
+    @apply outline-none min-h-[300px] p-4;
+  }
+  
+  .ProseMirror:focus {
+    @apply outline-none;
+  }
+  
+  .prose-editor-content .ProseMirror {
+    @apply text-gray-900 dark:text-white;
   }
   
   .ProseMirror p.is-editor-empty:first-child::before {
@@ -77,5 +85,13 @@
   
   .ProseMirror ul[data-type="taskList"] li > div {
     @apply flex-1;
+  }
+  
+  .ProseMirror mark {
+    @apply bg-yellow-200 dark:bg-yellow-700;
+  }
+  
+  .ProseMirror img {
+    @apply max-w-full h-auto rounded-lg my-4;
   }
 }

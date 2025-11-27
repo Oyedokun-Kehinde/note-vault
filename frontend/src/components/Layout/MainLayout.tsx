@@ -14,7 +14,7 @@ export default function MainLayout() {
       />
       <div className="flex-1 flex flex-col overflow-hidden">
         <DashboardHeader onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)} />
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-6 overflow-auto pt-6">
           <Outlet />
         </main>
       </div>

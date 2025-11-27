@@ -19,8 +19,9 @@ export default function App() {
   const { checkAuth, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
+    // Only check auth once on mount
     checkAuth();
-  }, [checkAuth]);
+  }, []); // Empty deps - run once
 
   return (
     <Routes>

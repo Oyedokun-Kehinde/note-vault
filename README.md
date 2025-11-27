@@ -1,20 +1,23 @@
-# NoteVault - Premium TypeScript Note-Taking Application 🚀
+# 🔒 NoteVault - Secure Note-Taking Application
 
-The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS**, **Tiptap Rich Text Editor**, and the **MERN stack**. A professional, production-ready application with comprehensive features, beautiful UI, and enterprise-grade architecture.
+A **modern, full-stack note-taking application** with **secure vault features**, built with **TypeScript**, **React**, **Tiptap Rich Text Editor**, **Prisma ORM**, and **Supabase PostgreSQL**. Professional, production-ready with enterprise-grade architecture.
 
-![NoteVault Preview](https://img.shields.io/badge/TypeScript-5.0-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![React](https://img.shields.io/badge/React-19-61dafb) ![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)
+![NoteVault Preview](https://img.shields.io/badge/TypeScript-5.0-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![React](https://img.shields.io/badge/React-19-61dafb) ![Prisma](https://img.shields.io/badge/Prisma-5.22-2D3748) ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E)
 
-## ⭐ Why NoteVault is #1
+## ⭐ Key Features
 
-- 🎨 **Modern UI/UX** - Beautiful gradient design with Tailwind CSS
-- ✍️ **Rich Text Editing** - Professional Tiptap editor with 15+ formatting options
-- 🔒 **Secure Authentication** - JWT-based auth with bcrypt encryption
-- 📊 **Analytics Dashboard** - Visualize your note-taking habits with charts
-- 🌙 **Dark Mode** - Toggle between light and dark themes
-- 📱 **Fully Responsive** - Perfect on mobile, tablet, and desktop
-- ⚡ **Type-Safe** - 100% TypeScript for reliability
-- 🚀 **Production Ready** - Docker Compose for easy deployment
-- 🎯 **Zero Errors** - All TypeScript linting issues resolved
+- 🔒 **Vault Theme** - Security-focused design with padlock branding
+- ✍️ **Rich Text Editing** - Tiptap editor with bold, italic, lists, links, images, and more
+- 🔐 **Secure Authentication** - JWT tokens with bcrypt password hashing
+- 📊 **Personalized Dashboard** - Time-based greetings, recent notes, visual analytics
+- 🏷️ **User-Defined Categories** - Create your own custom categories
+- 🎯 **Tag System** - Organize with unlimited custom tags
+- 🔍 **Global Search** - Search bar in header, available everywhere
+- 📌 **Pin & Favorite** - Quick access to important notes
+- 🌙 **Dark Mode** - Full dark theme support
+- 📱 **Responsive** - Works on mobile, tablet, and desktop
+- ⚡ **Type-Safe** - 100% TypeScript with Prisma ORM
+- 🗄️ **PostgreSQL** - Reliable Supabase-hosted database
 
 ## ✨ Complete Feature Set
 
@@ -39,14 +42,16 @@ The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS*
 ### 📝 Note Management
 - ✅ Create, Read, Update, Delete notes
 - ✅ **Pin Notes:** Keep important notes at the top
-- ✅ **Favorite Notes:** Mark with ❤️ for quick access
-- ✅ **Categories:** Organize by Personal, Work, Ideas, Spirituality, Leadership, Journalling, Other
+- ✅ **Favorite Notes:** Star your most important notes
+- ✅ **User-Defined Categories:** Create unlimited custom categories with colors and icons
+- ✅ **Custom Tags:** Organize with user-created tags
 - ✅ **Cover Images:** Add visual appeal to notes
 - ✅ **Archive:** Hide notes without deleting
-- ✅ **Recycle Bin:** Soft delete with recovery option
-- ✅ **Search:** Full-text search across all notes
-- ✅ **Filters:** Filter by category, favorites, pinned status
+- ✅ **Recycle Bin:** Soft delete with 30-day recovery
+- ✅ **Global Search:** Search from anywhere via header search bar
+- ✅ **Advanced Filters:** Filter by category, tags, favorites, pinned status
 - ✅ **View Modes:** Switch between Grid and List views
+- ✅ **Rich Content:** Full HTML support with Tiptap editor
 
 ### 📊 Analytics Dashboard
 - ✅ **Statistics Cards:** Total notes, favorites, pinned, archived, deleted
@@ -54,21 +59,28 @@ The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS*
 - ✅ **Pie Chart:** Category proportions visualization
 - ✅ **Recharts Integration:** Interactive, responsive charts
 
-### 👤 User Profile
+### 👤 User Profile & Customization
 - ✅ View and edit profile information
-- ✅ Update full name, bio, and avatar
+- ✅ Update bio and avatar
 - ✅ Account creation date display
-- ✅ Secure logout functionality
+- ✅ Secure logout with confirmation
+- ✅ **Custom Categories:** Create and manage your own categories
+- ✅ **Custom Tags:** Build your tag system
+- ✅ **Theme Preferences:** Light/Dark mode
+- ✅ **View Preferences:** Grid/List default view
 
 ### 🎨 UI/UX Excellence
-- ✅ **Tailwind CSS:** Modern, utility-first styling
-- ✅ **Dark Mode:** Toggle between light and dark themes
-- ✅ **Responsive Design:** Perfect on all screen sizes
-- ✅ **Gradient Accents:** Purple to Cyan gradients
-- ✅ **Smooth Animations:** Hover effects and transitions
-- ✅ **Toast Notifications:** Real-time feedback with react-hot-toast
-- ✅ **Loading States:** Spinners and skeleton screens
-- ✅ **Error Handling:** Graceful error messages
+- ✅ **Vault Theme:** Padlock icon branding for security feel
+- ✅ **Collapsible Sidebar:** Space-efficient navigation with tooltips
+- ✅ **Sticky Header:** Always accessible with global search
+- ✅ **Dark Mode:** Full dark theme support
+- ✅ **Responsive Design:** Mobile-first, works on all devices
+- ✅ **Gradient Accents:** Purple to Cyan vault theme
+- ✅ **Smooth Animations:** Polished hover and transition effects
+- ✅ **Toast Notifications:** Real-time feedback
+- ✅ **Confirmation Modals:** For destructive actions (delete, logout)
+- ✅ **Loading States:** Professional spinners
+- ✅ **Time-Based Greetings:** Personalized dashboard messages
 
 ### 🛠️ Developer Experience
 - ✅ **100% TypeScript:** Complete type safety
@@ -133,11 +145,10 @@ The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS*
 |------------|---------|
 | **Node.js** | Runtime environment |
 | **Express.js** | Web framework |
-| **MongoDB** | Database (NoSQL) |
-| **Mongoose** | ODM for MongoDB |
+| **Supabase PostgreSQL** | Database (cloud-hosted) |
+| **Prisma ORM v5.22** | Type-safe database client |
 | **JWT** | Authentication tokens |
 | **bcryptjs** | Password hashing |
-| **express-validator** | Input validation |
 | **helmet** | Security headers |
 | **cors** | Cross-origin requests |
 | **morgan** | HTTP request logger |
@@ -148,16 +159,17 @@ The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS*
 | Technology | Purpose |
 |------------|---------|
 | **React 19** | UI library |
+| **TypeScript** | Type safety |
 | **Vite** | Build tool & dev server |
-| **React Router** | Client-side routing |
-| **Zustand** | State management |
-| **Axios** | HTTP client |
-| **React Quill** | Rich text editor |
+| **React Router v6** | Client-side routing |
+| **Zustand** | Lightweight state management |
+| **Axios** | HTTP client with interceptors |
+| **Tiptap** | Rich text editor (Prosemirror) |
 | **Recharts** | Data visualization |
-| **Framer Motion** | Animations |
-| **Lucide React** | Icons |
-| **React Hot Toast** | Notifications |
+| **Lucide React** | Modern icon library |
+| **React Hot Toast** | Toast notifications |
 | **date-fns** | Date formatting |
+| **Tailwind CSS v3.4** | Utility-first CSS |
 | **Login & Registration** | JWT authentication, secure password hashing, form validation |
 | **Rich Text Editor** | Tiptap editor with 15+ formatting options |
 | **Note Management** | Full CRUD, pin, favorite, archive, delete, cover images |
@@ -179,50 +191,49 @@ The **#1 Full-Stack Note-Taking App** built with **TypeScript**, **Tailwind CSS*
 note-app/
 ├── backend/                    # Express.js backend
 │   ├── controllers/           # Request handlers
-│   │   ├── auth.controller.js
-│   │   ├── note.controller.js
-│   │   ├── user.controller.js
-│   │   └── tag.controller.js
-│   ├── models/                # Mongoose schemas
-│   │   ├── User.model.js
-│   │   ├── Note.model.js
-│   │   └── Tag.model.js
+│   │   ├── auth.controller.prisma.js
+│   │   └── note.controller.prisma.js
+│   ├── prisma/                # Prisma ORM
+│   │   ├── schema.prisma     # Database schema
+│   │   ├── client.js          # Prisma client
+│   │   └── seed.js            # Database seeding
 │   ├── routes/                # API routes
-│   │   ├── auth.routes.js
-│   │   ├── note.routes.js
-│   │   ├── user.routes.js
-│   │   └── tag.routes.js
+│   │   ├── auth.routes.prisma.js
+│   │   └── note.routes.prisma.js
 │   ├── middleware/            # Custom middleware
-│   │   ├── auth.middleware.js
-│   │   └── errorHandler.js
+│   │   └── auth.middleware.prisma.js
 │   ├── server.js              # Entry point
 │   ├── package.json
-│   └── .env.example
+│   └── .env
 │
-├── frontend/                  # React frontend
+├── frontend/                  # React + TypeScript frontend
 │   ├── src/
 │   │   ├── components/       # React components
-│   │   │   ├── Auth/         # Login, Register
-│   │   │   ├── Dashboard/    # Analytics
-│   │   │   ├── Navbar/       # Navigation
-│   │   │   ├── Profile/      # User profile
-│   │   │   ├── NoteCard.jsx
-│   │   │   ├── NoteForm.jsx
-│   │   │   ├── NoteModal.jsx
-│   │   │   └── Controls.jsx
+│   │   │   ├── Editor/       # RichTextEditor (Tiptap)
+│   │   │   ├── Layout/       # Sidebar, DashboardHeader, MainLayout
+│   │   │   └── Notes/        # QuickNoteModal
 │   │   ├── pages/            # Page components
-│   │   │   └── NotesPage.jsx
+│   │   │   ├── Auth/         # Login.tsx, Register.tsx
+│   │   │   ├── Dashboard.tsx # Personalized dashboard
+│   │   │   ├── NotesPage.tsx # All notes view
+│   │   │   ├── Archive.tsx   # Archived notes
+│   │   │   ├── RecycleBin.tsx # Deleted notes
+│   │   │   └── Profile.tsx   # User settings
 │   │   ├── store/            # Zustand stores
-│   │   │   ├── useAuthStore.js
-│   │   │   └── useNoteStore.js
-│   │   ├── utils/            # Utility functions
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   ├── main.jsx
+│   │   │   ├── useAuthStore.ts
+│   │   │   └── useNoteStore.ts
+│   │   ├── types/            # TypeScript types
+│   │   │   └── index.ts
+│   │   ├── utils/            # API client
+│   │   │   └── api.ts
+│   │   ├── App.tsx
+│   │   ├── main.tsx
 │   │   └── index.css
 │   ├── public/
+│   │   └── favicon.svg       # Padlock icon
 │   ├── package.json
-│   └── vite.config.js
+│   ├── tsconfig.json
+│   └── vite.config.ts
 │
 ├── docker-compose.yml         # Docker orchestration
 ├── .gitignore
@@ -297,25 +308,38 @@ note-app/
    - Register a new account
    - Start creating notes!
 
-## 🐳 Docker Deployment
+## 🗄️ Database Setup
 
-Run the entire stack with Docker Compose:
+### Prisma Migrations
 
 ```bash
-# Build and start all services
-docker-compose up -d
+cd backend
 
-# View logs
-docker-compose logs -f
+# Generate Prisma Client
+npx prisma generate
 
-# Stop all services
-docker-compose down
+# Push schema to database
+npx prisma db push
+
+# (Optional) Seed database with demo data
+node prisma/seed.js
+
+# View database in Prisma Studio
+npx prisma studio
 ```
 
-Services:
-- **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:5000
-- **MongoDB**: localhost:27017
+### Database Models
+
+- **User** - Authentication and preferences
+- **Note** - Notes with rich content
+- **Category** - User-defined categories
+- **Tag** - User-created tags
+- **SharedNote** - Note sharing permissions
+- **Attachment** - File attachments
+- **CheckListItem** - Task list items
+- **NoteTemplate** - Reusable templates
+- **Activity** - User activity tracking
+- **Export** - Export history
 
 ## 📡 API Endpoints
 
@@ -333,12 +357,20 @@ GET    /api/notes                # Get all notes (with filters)
 POST   /api/notes                # Create new note
 GET    /api/notes/:id            # Get single note
 PUT    /api/notes/:id            # Update note
-DELETE /api/notes/:id            # Delete note
+DELETE /api/notes/:id            # Soft delete note
 PATCH  /api/notes/:id/pin        # Toggle pin
 PATCH  /api/notes/:id/favorite   # Toggle favorite
-POST   /api/notes/:id/share      # Share note
 GET    /api/notes/stats          # Get statistics
 ```
+
+**Query Parameters:**
+- `search` - Full-text search
+- `category` - Filter by category
+- `tags` - Filter by tags
+- `favorite` - Show only favorites
+- `pinned` - Show only pinned
+- `archived` - Show archived notes
+- `deleted` - Show deleted notes
 
 ### Users
 ```
@@ -360,13 +392,15 @@ GET    /api/tags/:tag/notes      # Get notes by tag
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/notevault
-JWT_SECRET=your-super-secret-jwt-key
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public
+JWT_SECRET=your-super-secret-jwt-key-min-32-characters
 JWT_EXPIRE=7d
-CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+CORS_ORIGINS=http://localhost:5173
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX_REQUESTS=100
 ```
+
+**Note:** Get your `DATABASE_URL` from Supabase project settings → Database → Connection string
 
 ### Frontend (.env)
 ```env
@@ -455,17 +489,22 @@ For detailed API documentation and advanced features, please refer to:
 
 ## 🗺️ Roadmap
 
-- [ ] Rich text editor with react-quill
+- [x] ~~Rich text editor~~ ✅ Implemented with Tiptap
+- [x] ~~User-defined categories~~ ✅ Custom categories
+- [x] ~~Tag system~~ ✅ User-created tags
+- [x] ~~Global search~~ ✅ Header search bar
 - [ ] Real-time collaboration with Socket.io
 - [ ] File attachments with cloud storage
-- [ ] Export notes (PDF, Markdown)
+- [ ] Export notes (PDF, Markdown, JSON)
 - [ ] Mobile apps (React Native)
 - [ ] Offline support with PWA
 - [ ] Email notifications
 - [ ] Two-factor authentication
-- [ ] Note templates
+- [ ] Advanced note templates
 - [ ] Voice notes
 - [ ] OCR for images
+- [ ] API rate limiting per user
+- [ ] Note version history
 
 ## ⭐ Show Your Support
 

@@ -35,9 +35,15 @@ interface RichTextEditorProps {
 export default function RichTextEditor({ content, onChange, placeholder }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        // Disable link from StarterKit to avoid duplicate
+        link: false,
+      }),
       Link.configure({
         openOnClick: false,
+        HTMLAttributes: {
+          class: 'text-purple-600 underline',
+        },
       }),
       Image,
       TaskList,
@@ -54,8 +60,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
-        'data-placeholder': placeholder || 'Start typing your note...',
+        class: 'prose prose-sm dark:prose-invert max-w-none p-4 focus:outline-none min-h-[300px] text-gray-900 dark:text-white',
       },
     },
   });
@@ -260,7 +265,9 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
         </button>
       </div>
       
-      <EditorContent editor={editor} className="min-h-[300px]" />
+      <div className="prose-editor-content">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }

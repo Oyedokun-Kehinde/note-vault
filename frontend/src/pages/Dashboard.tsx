@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FileText, Star, Pin, Archive, Trash2, Clock, TrendingUp, Calendar, Plus } from 'lucide-react';
+import { FileText, Star, Pin, Archive, Trash2, Clock, TrendingUp, Calendar, Plus, Hash } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import useNoteStore from '../store/useNoteStore';
 import useAuthStore from '../store/useAuthStore';
@@ -41,10 +41,26 @@ export default function Dashboard() {
   }, [fetchStats, fetchNotes]);
 
   // Get recent notes
-  const recentNotes = notes
-    ?.filter(note => !note.deleted && !note.archived)
+  const recentNotes = (notes || [])
+    .filter(note => note && !note.deleted && !note.archived)
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-    .slice(0, 5) || [];
+    .slice(0, 5);
+  
+  // Get popular tags
+  const tagCounts = (notes || [])
+    .filter(note => note && !note.deleted)
+    .flatMap(note => note.tags || [])
+    .reduce((acc, tag) => {
+      if (tag) {
+        acc[tag] = (acc[tag] || 0) + 1;
+      }
+      return acc;
+    }, {} as Record<string, number>);
+  
+  const popularTags = Object.entries(tagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([tag, count]) => ({ tag, count }));
 
   if (!stats) {
     return (
@@ -125,6 +141,30 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+
+        {/* Popular Tags */}
+        {popularTags.length > 0 && (
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <Hash className="text-purple-600" />
+              Popular Tags
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {popularTags.map(({ tag, count }) => (
+                <button
+                  key={tag}
+                  className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors flex items-center gap-2"
+                >
+                  <Hash size={14} />
+                  {tag}
+                  <span className="bg-purple-200 dark:bg-purple-800 px-2 py-0.5 rounded-full text-xs">
+                    {count}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Recent Notes */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
