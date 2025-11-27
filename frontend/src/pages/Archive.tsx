@@ -3,7 +3,7 @@ import Navbar from '../components/Layout/Navbar';
 import useNoteStore from '../store/useNoteStore';
 
 export default function Archive() {
-  const { filteredNotes, isLoading, fetchNotes, toggleArchived } = useNoteStore();
+  const { filteredNotes, isLoading, toggleArchived } = useNoteStore();
 
   useEffect(() => {
     toggleArchived();

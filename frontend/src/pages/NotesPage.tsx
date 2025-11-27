@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Search, Grid, List, Filter } from 'lucide-react';
+import { Plus, Search, Grid, List } from 'lucide-react';
 import Navbar from '../components/Layout/Navbar';
 import useNoteStore from '../store/useNoteStore';
 import { CATEGORIES } from '../types';
@@ -26,10 +26,15 @@ export default function NotesPage() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingNote, setEditingNote] = useState<Note | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    title: string;
+    content: string;
+    category: Category | '';
+    cover: string;
+  }>({
     title: '',
     content: '',
-    category: '' as Category | '',
+    category: '',
     cover: '',
   });
 
@@ -39,13 +44,23 @@ export default function NotesPage() {
 
   const handleCreate = async () => {
     if (!formData.title || !formData.category) return;
-    await createNote(formData);
+    await createNote({
+      title: formData.title,
+      content: formData.content,
+      category: formData.category as Category,
+      cover: formData.cover,
+    });
     resetForm();
   };
 
   const handleUpdate = async () => {
     if (!editingNote || !formData.title) return;
-    await updateNote(editingNote._id, formData);
+    await updateNote(editingNote._id, {
+      title: formData.title,
+      content: formData.content,
+      category: formData.category as Category,
+      cover: formData.cover,
+    });
     resetForm();
   };
 

@@ -3,7 +3,7 @@ import Navbar from '../components/Layout/Navbar';
 import useNoteStore from '../store/useNoteStore';
 
 export default function RecycleBin() {
-  const { filteredNotes, isLoading, fetchNotes, toggleDeleted } = useNoteStore();
+  const { filteredNotes, isLoading, toggleDeleted } = useNoteStore();
 
   useEffect(() => {
     toggleDeleted();

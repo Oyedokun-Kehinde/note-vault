@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, BarChart3, User, Archive, Trash2, FileText, LogOut } from 'lucide-react';
 import useAuthStore from '../../store/useAuthStore';
+import DarkModeToggle from './DarkModeToggle';
 
 export default function Navbar() {
   const location = useLocation();
@@ -44,7 +45,9 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <DarkModeToggle />
+            
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-cyan-500 flex items-center justify-center text-white font-bold">
                 {user?.avatar ? (

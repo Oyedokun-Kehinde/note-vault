@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, Mail, Save, LogOut } from 'lucide-react';
+import { Mail, Save, LogOut } from 'lucide-react';
 import Navbar from '../components/Layout/Navbar';
 import useAuthStore from '../store/useAuthStore';
 import api from '../utils/api';
