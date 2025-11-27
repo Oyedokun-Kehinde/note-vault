@@ -11,7 +11,8 @@ import {
   ChevronRight,
   LogOut,
   Star,
-  Pin
+  Pin,
+  Lock as LockIcon
 } from 'lucide-react';
 import ConfirmModal from './ConfirmModal';
 import useAuthStore from '../../store/useAuthStore';
@@ -46,14 +47,23 @@ export default function Sidebar() {
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          {!isCollapsed && (
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">
-              NoteVault
-            </h1>
+          {isCollapsed ? (
+            <div className="p-2 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg mx-auto">
+              <LockIcon size={24} className="text-white" />
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-lg">
+                <LockIcon size={20} className="text-white" />
+              </div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent">
+                NoteVault
+              </h1>
+            </div>
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${isCollapsed ? 'mt-3' : ''}`}
           >
             {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </button>
