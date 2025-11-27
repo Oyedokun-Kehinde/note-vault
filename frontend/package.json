@@ -1,7 +1,7 @@
 {
-  "name": "note-app",
+  "name": "notevault-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,14 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.9.6",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.9.6",
+    "react-quill": "^2.0.0",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.294.0",
+    "framer-motion": "^10.16.16",
+    "zustand": "^4.4.7",
+    "react-markdown": "^9.0.1",
+    "recharts": "^2.10.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

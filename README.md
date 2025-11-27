@@ -1,261 +1,396 @@
-# Note-Taker
+# NoteVault - Full-Stack Note-Taking Application 🚀
 
-A clean, responsive, and production-ready note-taking application inspired by Google Keep. Built with **React**, **Vite**, and **vanilla CSS** — no Bootstrap, no Tailwind. Features category tagging, cover images, relative timestamps, and a polished user experience.
+A comprehensive, production-ready note-taking application with **authentication**, **real-time collaboration**, **analytics**, and **advanced search**. Built with the **MERN stack** (MongoDB, Express.js, React, Node.js) featuring a beautiful modern UI and enterprise-grade features.
 
-![Note-Taker Preview](https://via.placeholder.com/900x400?text=Note-Taker+App+Preview)  
-*Replace with actual screenshot before publishing*
+![NoteVault Preview](https://via.placeholder.com/1200x600?text=NoteVault+Full-Stack+App)
 
----
+## ✨ Key Features
 
-## ✨ Features
+### 🔐 Authentication & Security
+- **User Registration & Login** with JWT authentication
+- **Secure password hashing** using bcrypt
+- **Protected routes** and API endpoints
+- **Session management** with token refresh
+- **Role-based access control**
 
-- **Google Keep–style interface**: “Take a note…” input on homepage, floating “+” button when empty
-- **Category management**: Predefined categories via a clean dropdown; displayed as colored chips on notes
-- **Rich note content**: Support for title, detailed content, and cover image (via URL)
-- **Smart content preview**: Notes truncated to 200 characters for consistent card height
-- **Human-readable timestamps**:  
-  `Just now` • `5m ago` • `Today, 3:45 PM` • `Yesterday` • `Nov 20`
-- **Full CRUD operations**: Create, read, update, and delete notes with confirmation
-- **Responsive grid layout**:  
-  - Mobile: 1 column  
-  - Tablet (≥640px): 2 columns  
-  - Desktop (≥1024px): 3 columns
-- **Polished UX enhancements**:
-  - Skeleton loading screens
-  - Auto-focus on title field
-  - Entire note card clickable (opens edit mode)
-  - Clear “← Back” button to cancel form
-  - “My Notes” heading acts as home button
-  - Visual feedback on input focus
-- **Modern design**:
-  - Google Fonts: **Raleway** (400, 500, 600, 700)
-  - Primary color: `#45BFDB` (vibrant cyan-blue)
-  - Clean spacing, subtle shadows, smooth transitions
+### 📝 Advanced Note Management
+- **Rich Text Editor** with markdown support
+- **Category organization** (Personal, Work, Ideas, Spirituality, Leadership, Journalling, Other)
+- **Hashtag support** with automatic tag extraction
+- **Pin important notes** to the top
+- **Favorite notes** for quick access
+- **Archive & Trash** with soft delete
+- **Cover images** for visual organization
+- **Color coding** for notes
+- **Checklist support** within notes
+- **File attachments** (planning feature)
 
----
+### 🔍 Powerful Search & Filters
+- **Full-text search** across title, content, and tags
+- **Filter by category**, tags, favorites, archived, or deleted
+- **Advanced search** with MongoDB text indexes
+- **Real-time filtering** as you type
+
+### 📊 Analytics & Insights
+- **Dashboard with statistics** (total notes, favorites, archived, deleted)
+- **Category distribution charts** (Bar & Pie charts)
+- **Usage analytics** and trends
+- **Visual data representation** with Recharts
+
+### 🤝 Collaboration (Planned)
+- **Share notes** with other users
+- **View & Edit permissions**
+- **Collaborative editing** (future enhancement)
+- **User search** for sharing
+
+### 🎨 Modern UI/UX
+- **Responsive design** (Mobile, Tablet, Desktop)
+- **Grid & List view modes**
+- **Dark mode support** (planned)
+- **Smooth animations** with Framer Motion
+- **Toast notifications** for user feedback
+- **Skeleton loaders** for better UX
+- **Lucide React icons** throughout
+
+### ⚡ Performance & Optimization
+- **State management** with Zustand
+- **Optimized API calls** with Axios interceptors
+- **Database indexing** for fast queries
+- **Rate limiting** to prevent abuse
+- **Compression** for faster responses
+- **Error boundary** for graceful error handling
 
 ## 🛠️ Tech Stack
 
-| Layer        | Technology             |
-|--------------|------------------------|
-| **Frontend** | React 18, Vite         |
-| **Styling**  | Vanilla CSS, Raleway (Google Fonts) |
-| **HTTP**     | Axios                  |
-| **Dates**    | date-fns               |
-| **Dev Backend** | JSON Server (local only) |
-| **Deployment** | Vercel (frontend)     |
+### Backend
+| Technology | Purpose |
+|------------|---------|
+| **Node.js** | Runtime environment |
+| **Express.js** | Web framework |
+| **MongoDB** | Database (NoSQL) |
+| **Mongoose** | ODM for MongoDB |
+| **JWT** | Authentication tokens |
+| **bcryptjs** | Password hashing |
+| **express-validator** | Input validation |
+| **helmet** | Security headers |
+| **cors** | Cross-origin requests |
+| **morgan** | HTTP request logger |
+| **compression** | Response compression |
+| **express-rate-limit** | Rate limiting |
 
-> ✅ **No CSS frameworks** — 100% custom CSS for full control and minimal bundle size.
-
----
-
-## 🚀 Local Development
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) v18 or higher
-- npm (included with Node.js)
-
-### Setup Instructions
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Oyedokun-Kehinde/note-taker.git
-   cd note-taker
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Initialize the database**  
-   Create a `db.json` file in the project root with the following content:
-   ```json
-   {
-     "notes": []
-   }
-   ```
-
-4. **Start the local API server**  
-   JSON Server will serve notes at `http://localhost:3001/notes`:
-   ```bash
-   npx json-server --watch db.json --port 3001
-   ```
-
-5. **Start the React development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**  
-   Visit the URL shown in the terminal (typically `http://localhost:5173`).
-
----
+### Frontend
+| Technology | Purpose |
+|------------|---------|
+| **React 19** | UI library |
+| **Vite** | Build tool & dev server |
+| **React Router** | Client-side routing |
+| **Zustand** | State management |
+| **Axios** | HTTP client |
+| **React Quill** | Rich text editor |
+| **Recharts** | Data visualization |
+| **Framer Motion** | Animations |
+| **Lucide React** | Icons |
+| **React Hot Toast** | Notifications |
+| **date-fns** | Date formatting |
 
 ## 📂 Project Structure
 
 ```
-note-taker/
-├── public/
-│   └── index.html                 # Entry HTML with Google Fonts
-├── src/
-│   ├── components/
-│   │   ├── NoteCard.jsx           # Displays a single note (grid item)
-│   │   └── NoteForm.jsx           # Handles create/edit forms
-│   ├── App.jsx                    # Main app logic and routing
-│   ├── main.jsx                   # React renderer
-│   ├── index.css                  # Global styles (vanilla CSS)
-│   └── utils.js                   # Helper functions (truncate, timestamps)
-├── db.json                        # JSON Server database (local only)
-├── package.json
-├── vite.config.js
+note-app/
+├── backend/                    # Express.js backend
+│   ├── controllers/           # Request handlers
+│   │   ├── auth.controller.js
+│   │   ├── note.controller.js
+│   │   ├── user.controller.js
+│   │   └── tag.controller.js
+│   ├── models/                # Mongoose schemas
+│   │   ├── User.model.js
+│   │   ├── Note.model.js
+│   │   └── Tag.model.js
+│   ├── routes/                # API routes
+│   │   ├── auth.routes.js
+│   │   ├── note.routes.js
+│   │   ├── user.routes.js
+│   │   └── tag.routes.js
+│   ├── middleware/            # Custom middleware
+│   │   ├── auth.middleware.js
+│   │   └── errorHandler.js
+│   ├── server.js              # Entry point
+│   ├── package.json
+│   └── .env.example
+│
+├── frontend/                  # React frontend
+│   ├── src/
+│   │   ├── components/       # React components
+│   │   │   ├── Auth/         # Login, Register
+│   │   │   ├── Dashboard/    # Analytics
+│   │   │   ├── Navbar/       # Navigation
+│   │   │   ├── Profile/      # User profile
+│   │   │   ├── NoteCard.jsx
+│   │   │   ├── NoteForm.jsx
+│   │   │   ├── NoteModal.jsx
+│   │   │   └── Controls.jsx
+│   │   ├── pages/            # Page components
+│   │   │   └── NotesPage.jsx
+│   │   ├── store/            # Zustand stores
+│   │   │   ├── useAuthStore.js
+│   │   │   └── useNoteStore.js
+│   │   ├── utils/            # Utility functions
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── docker-compose.yml         # Docker orchestration
+├── .gitignore
 └── README.md
 ```
 
----
+## 🚀 Quick Start
 
-## 🎨 Design System
+### Prerequisites
 
-### Colors
-- Primary: `#45BFDB` (used for headings, buttons, accents)
-- Background: `#FFFFFF`
-- Text: `#333333`
-- Meta text: `#777777`
-- Category chip: `#F0F9FF` (background), `#45BFDB` (text)
+- **Node.js** v18+ ([Download](https://nodejs.org/))
+- **MongoDB** ([Download](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- **Git** ([Download](https://git-scm.com/))
 
-### Typography
-- **Font**: [Raleway](https://fonts.google.com/specimen/Raleway)
-- **Weights**: 400 (regular), 500 (medium), 600 (semibold), 700 (bold)
-- **Base size**: 16px
+### Installation
 
-### Spacing
-- Consistent padding/margin using rem units
-- Card padding: `1.25rem`
-- Grid gap: `1.5rem`
-
----
-
-## 📦 Deployment to Vercel
-
-> ⚠️ **Important**: JSON Server is **only for local development**. It will not work in production. You must replace it with a real backend for full functionality.
-
-### Frontend Deployment (Vercel)
-
-1. **Build the production bundle**
+1. **Clone the repository**
    ```bash
-   npm run build
+   git clone https://github.com/Oyedokun-Kehinde/note-vault.git
+   cd note-vault
    ```
-   Output: `dist/` folder
 
-2. **Deploy via Vercel CLI (recommended)**
+2. **Setup Backend**
    ```bash
-   npm install -g vercel
-   vercel
+   cd backend
+   npm install
+   
+   # Create .env file
+   cp .env.example .env
+   
+   # Edit .env with your configuration
+   # Set MONGODB_URI, JWT_SECRET, etc.
    ```
-   - Follow prompts to link to your GitHub account
-   - Select the `note-taker` project
-   - Vercel auto-detects Vite configuration
 
-3. **Or deploy via Vercel Dashboard**
-   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
-   - Click **“Add New…” → “Project”**
-   - Import **GitHub repository**: `Oyedokun-Kehinde/note-taker`
-   - **Build settings**:
-     - Framework: **Vite**
-     - Build command: `npm run build`
-     - Output directory: `dist`
-   - Click **“Deploy”**
+3. **Setup Frontend**
+   ```bash
+   cd ../frontend
+   npm install
+   
+   # Create .env file
+   cp .env.example .env
+   
+   # Edit .env with backend URL
+   ```
 
-✅ Your app will be live at: `https://note-taker.vercel.app`
+4. **Start MongoDB**
+   ```bash
+   # If running locally
+   mongod
+   
+   # Or use MongoDB Atlas connection string in .env
+   ```
 
-### Production Backend Options
+5. **Start Backend Server**
+   ```bash
+   cd backend
+   npm run dev
+   
+   # Server runs on http://localhost:5000
+   ```
 
-To enable note persistence in production, replace `http://localhost:3001` with a real API:
+6. **Start Frontend Dev Server**
+   ```bash
+   cd frontend
+   npm run dev
+   
+   # App runs on http://localhost:5173
+   ```
 
-| Option              | Description |
-|---------------------|-------------|
-| **Firebase Firestore** | Free tier available; real-time sync |
-| **Supabase**        | Open-source Firebase alternative |
-| **Custom Node.js API** | Deploy alongside frontend on Vercel (serverless functions) |
-| **Pocketbase**      | Lightweight open-source backend |
+7. **Open your browser**
+   - Visit `http://localhost:5173`
+   - Register a new account
+   - Start creating notes!
 
-> 🔧 Update all API calls in `App.jsx`, `NoteCard.jsx`, and `NoteForm.jsx` to point to your production endpoint.
+## 🐳 Docker Deployment
 
----
+Run the entire stack with Docker Compose:
 
-## 🧪 API Specification (JSON Server)
+```bash
+# Build and start all services
+docker-compose up -d
 
-| Method | Endpoint        | Request Body | Response |
-|--------|-----------------|--------------|----------|
-| `GET`  | `/notes`        | —            | `Note[]` |
-| `POST` | `/notes`        | `NewNote`    | `Note`   |
-| `PUT`  | `/notes/:id`    | `UpdatedNote`| `Note`   |
-| `DELETE`| `/notes/:id`   | —            | `{}`     |
+# View logs
+docker-compose logs -f
 
-**Note Object Schema**
-```ts
-interface Note {
-  id: string;                  // auto-generated by JSON Server
-  title: string;
-  category: string;            // e.g., "Personal", "Work"
-  content: string;             // full note content
-  cover?: string;              // image URL (optional)
-  createdAt: string;           // ISO 8601 timestamp
-  updatedAt: string;           // ISO 8601 timestamp
-}
+# Stop all services
+docker-compose down
 ```
 
----
+Services:
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:5000
+- **MongoDB**: localhost:27017
+
+## 📡 API Endpoints
+
+### Authentication
+```
+POST   /api/auth/register        # Register new user
+POST   /api/auth/login           # Login user
+GET    /api/auth/me              # Get current user
+PUT    /api/auth/update-password # Update password
+```
+
+### Notes
+```
+GET    /api/notes                # Get all notes (with filters)
+POST   /api/notes                # Create new note
+GET    /api/notes/:id            # Get single note
+PUT    /api/notes/:id            # Update note
+DELETE /api/notes/:id            # Delete note
+PATCH  /api/notes/:id/pin        # Toggle pin
+PATCH  /api/notes/:id/favorite   # Toggle favorite
+POST   /api/notes/:id/share      # Share note
+GET    /api/notes/stats          # Get statistics
+```
+
+### Users
+```
+GET    /api/users/profile        # Get user profile
+PUT    /api/users/profile        # Update profile
+PUT    /api/users/preferences    # Update preferences
+GET    /api/users/search         # Search users
+```
+
+### Tags
+```
+GET    /api/tags                 # Get all tags
+GET    /api/tags/:tag/notes      # Get notes by tag
+```
+
+## 🔒 Environment Variables
+
+### Backend (.env)
+```env
+PORT=5000
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/notevault
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRE=7d
+CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+```
+
+### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_APP_NAME=NoteVault
+```
+
+## 🎯 Usage Guide
+
+### Creating a Note
+1. Click **"New Note"** button
+2. Enter title, select category
+3. Write content (supports markdown)
+4. Add cover image URL (optional)
+5. Use **#hashtags** for automatic tagging
+6. Click **"Save"**
+
+### Organizing Notes
+- **Pin**: Click pin icon to keep note at top
+- **Favorite**: Star important notes
+- **Archive**: Hide notes without deleting
+- **Delete**: Move to trash (recoverable)
+- **Categories**: Use predefined categories for organization
+
+### Searching & Filtering
+- **Search bar**: Type to search across all notes
+- **Category filter**: Select specific category
+- **Quick filters**: Favorites, Archived, Trash
+- **View modes**: Switch between Grid and List
+
+### Analytics
+- View **Dashboard** for statistics
+- See **category distribution**
+- Track **usage patterns**
+- Monitor **note counts**
 
 ## 🤝 Contributing
 
-We welcome contributions! Please follow this workflow:
+Contributions are welcome! Please follow these steps:
 
 1. Fork the repository
-2. Create a feature branch:  
+2. Create a feature branch
    ```bash
-   git checkout -b feature/your-feature-name
+   git checkout -b feature/amazing-feature
    ```
-3. Commit your changes:  
+3. Commit your changes
    ```bash
-   git commit -m "Add your feature"
+   git commit -m "Add amazing feature"
    ```
-4. Push to your branch:  
+4. Push to the branch
    ```bash
-   git push origin feature/your-feature-name
+   git push origin feature/amazing-feature
    ```
-5. Open a Pull Request to `main`
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Oyedokun Kehinde**
+
+- GitHub: [@Oyedokun-Kehinde](https://github.com/Oyedokun-Kehinde)
+- Location: Nigeria 🇳🇬
+
+## 🙏 Acknowledgments
+
+- Inspired by Google Keep and Notion
+- Icons by [Lucide](https://lucide.dev/)
+- Charts by [Recharts](https://recharts.org/)
+- UI inspired by modern design principles
+
+## 📚 Documentation
+
+For detailed API documentation and advanced features, please refer to:
+- [API Documentation](docs/API.md) (coming soon)
+- [Deployment Guide](docs/DEPLOYMENT.md) (coming soon)
+- [Contributing Guidelines](CONTRIBUTING.md) (coming soon)
+
+## 🐛 Known Issues
+
+- Rich text editor integration in progress
+- File attachments feature pending
+- Real-time collaboration under development
+
+## 🗺️ Roadmap
+
+- [ ] Rich text editor with react-quill
+- [ ] Real-time collaboration with Socket.io
+- [ ] File attachments with cloud storage
+- [ ] Export notes (PDF, Markdown)
+- [ ] Mobile apps (React Native)
+- [ ] Offline support with PWA
+- [ ] Email notifications
+- [ ] Two-factor authentication
+- [ ] Note templates
+- [ ] Voice notes
+- [ ] OCR for images
+
+## ⭐ Show Your Support
+
+If you find this project useful, please give it a ⭐ on GitHub!
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
-
----
-
-## 🙌 Author
-
-**Oyedokun-Kehinde**  
-📍 Nigeria  
-🌐 [GitHub](https://github.com/Oyedokun-Kehinde)  
-
-> Built with care, precision, and a passion for clean user interfaces. 💙
-
----
-
-## 💡 Future Enhancements
-
-- [ ] Dark mode toggle
-- [ ] Search and filter by category
-- [ ] Image upload (Cloudinary integration)
-- [ ] Note pinning / starring
-- [ ] Offline support (localStorage fallback)
-- [ ] Export notes as PDF/Markdown
-
----
-
-> 🔗 **Repository**: [github.com/Oyedokun-Kehinde/note-taker](https://github.com/Oyedokun-Kehinde/note-taker)  
-> 🌐 **Live Demo**: [note-taker.vercel.app](https://note-taker.vercel.app) *(after deployment)*
-
-⭐ **Star this repo if you find it useful!** ⭐
+**Built with ❤️ by Oyedokun Kehinde**
