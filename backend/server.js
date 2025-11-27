@@ -1,16 +1,16 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import compression from 'compression';
-import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
-import authRoutes from './routes/auth.routes.js';
-import noteRoutes from './routes/note.routes.js';
-import userRoutes from './routes/user.routes.js';
-import tagRoutes from './routes/tag.routes.js';
-import { errorHandler } from './middleware/errorHandler.js';
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const dotenv = require('dotenv');
+const prisma = require('./prisma/client');
+// const authRoutes = require('./routes/auth.routes.js');
+// const noteRoutes = require('./routes/note.routes.js');
+// const userRoutes = require('./routes/user.routes.js');
+// const tagRoutes = require('./routes/tag.routes.js');
+// const { errorHandler } = require('./middleware/errorHandler.js');
 
 dotenv.config();
 
@@ -48,16 +48,18 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('combined'));
 }
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/notevault', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB Connected Successfully'))
-.catch((err) => {
-  console.error('❌ MongoDB Connection Error:', err);
-  process.exit(1);
-});
+// Prisma Database connection test
+async function testDatabaseConnection() {
+  try {
+    await prisma.$connect();
+    console.log('✅ Supabase PostgreSQL Connected Successfully via Prisma');
+  } catch (err) {
+    console.error('❌ Database Connection Error:', err);
+    process.exit(1);
+  }
+}
+
+testDatabaseConnection();
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -69,11 +71,29 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/notes', noteRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/tags', tagRoutes);
+// API Routes (temporarily disabled during migration)
+// app.use('/api/auth', authRoutes);
+// app.use('/api/notes', noteRoutes);
+// app.use('/api/users', userRoutes);
+// app.use('/api/tags', tagRoutes);
+
+// Temporary test route
+app.get('/api/test', async (req, res) => {
+  try {
+    const userCount = await prisma.user.count();
+    const noteCount = await prisma.note.count();
+    res.json({
+      success: true,
+      message: 'Prisma working!',
+      data: { users: userCount, notes: noteCount }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
 
 // 404 handler
 app.use((req, res) => {
@@ -83,13 +103,19 @@ app.use((req, res) => {
   });
 });
 
-// Error handling middleware
-app.use(errorHandler);
+// Error handling middleware (temporarily disabled)
+// app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV} mode`);
-  console.log(`📝 API Documentation: http://localhost:${PORT}/api/health`);
+  console.log(`📝 API Health Check: http://localhost:${PORT}/api/health`);
+  console.log(`🧪 Test Prisma: http://localhost:${PORT}/api/test`);
 });
 
-export default app;
+// Graceful shutdown
+process.on('beforeExit', async () => {
+  await prisma.$disconnect();
+});
+
+module.exports = app;
