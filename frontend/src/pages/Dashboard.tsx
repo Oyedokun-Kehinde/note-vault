@@ -5,6 +5,7 @@ import { FileText, Star, Pin, Archive, Trash2, Clock, TrendingUp, Calendar, Plus
 import { formatDistanceToNow } from 'date-fns';
 import useNoteStore from '../store/useNoteStore';
 import useAuthStore from '../store/useAuthStore';
+import QuickNoteModal from '../components/Notes/QuickNoteModal';
 
 const COLORS = ['#9333ea', '#06b6d4', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6'];
 
@@ -24,6 +25,7 @@ export default function Dashboard() {
   const { user } = useAuthStore();
   const [greeting, setGreeting] = useState(getGreeting());
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showNoteModal, setShowNoteModal] = useState(false);
 
   useEffect(() => {
     fetchStats();
@@ -84,15 +86,26 @@ export default function Dashboard() {
             </p>
             <p className="text-lg opacity-75 italic">{greeting.tip}</p>
           </div>
-          <div className="text-right">
-            <div className="flex items-center gap-2 text-lg mb-2">
-              <Clock size={20} />
-              <span>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <div className="flex flex-col items-end gap-3">
+            <div className="text-right">
+              <div className="flex items-center gap-2 text-lg mb-2">
+                <Clock size={20} />
+                <span>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm opacity-75">
+                <Calendar size={16} />
+                <span>{currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-sm opacity-75">
-              <Calendar size={16} />
-              <span>{currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
-            </div>
+            
+            {/* Quick Create Note Button */}
+            <button
+              onClick={() => setShowNoteModal(true)}
+              className="px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-lg transition-all flex items-center gap-2 font-semibold shadow-lg"
+            >
+              <Plus size={20} />
+              Create Note
+            </button>
           </div>
         </div>
       </div>
@@ -120,13 +133,13 @@ export default function Dashboard() {
               <TrendingUp className="text-purple-600" />
               Recent Activity
             </h2>
-            <Link 
-              to="/notes"
+            <button
+              onClick={() => setShowNoteModal(true)}
               className="text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1"
             >
               <Plus size={18} />
               New Note
-            </Link>
+            </button>
           </div>
           
           {recentNotes.length > 0 ? (
@@ -166,13 +179,13 @@ export default function Dashboard() {
             <div className="text-center py-12">
               <FileText size={48} className="mx-auto text-gray-400 mb-4" />
               <p className="text-gray-600 dark:text-gray-400 mb-4">No notes yet!</p>
-              <Link
-                to="/notes"
+              <button
+                onClick={() => setShowNoteModal(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
               >
                 <Plus size={20} />
                 Create Your First Note
-              </Link>
+              </button>
             </div>
           )}
         </div>
@@ -218,6 +231,12 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+        
+        {/* Quick Note Creation Modal */}
+        <QuickNoteModal 
+          isOpen={showNoteModal} 
+          onClose={() => setShowNoteModal(false)} 
+        />
     </div>
   );
 }

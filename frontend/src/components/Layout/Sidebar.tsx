@@ -18,8 +18,12 @@ import ConfirmModal from './ConfirmModal';
 import useAuthStore from '../../store/useAuthStore';
 import DarkModeToggle from './DarkModeToggle';
 
-export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+interface SidebarProps {
+  isCollapsed: boolean;
+  onToggle: () => void;
+}
+
+export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user, logout } = useAuthStore();
 
@@ -61,12 +65,14 @@ export default function Sidebar() {
               </h1>
             </div>
           )}
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${isCollapsed ? 'mt-3' : ''}`}
-          >
-            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-          </button>
+          {!isCollapsed && (
+            <button
+              onClick={onToggle}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <ChevronLeft size={20} />
+            </button>
+          )}
         </div>
 
         {/* User Info */}
@@ -91,22 +97,30 @@ export default function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-2">
           {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`
-              }
-              title={isCollapsed ? item.label : undefined}
-            >
-              <item.icon size={20} />
-              {!isCollapsed && <span className="font-medium">{item.label}</span>}
-            </NavLink>
+            <div key={item.path} className="relative group">
+              <NavLink
+                to={item.path}
+                end={item.end}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  }`
+                }
+              >
+                <item.icon size={20} />
+                {!isCollapsed && <span className="font-medium">{item.label}</span>}
+              </NavLink>
+              
+              {/* Tooltip when collapsed */}
+              {isCollapsed && (
+                <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                  {item.label}
+                  <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -118,14 +132,23 @@ export default function Sidebar() {
           </div>
 
           {/* Logout Button */}
-          <button
-            onClick={() => setShowLogoutModal(true)}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-            title={isCollapsed ? 'Logout' : undefined}
-          >
-            <LogOut size={20} />
-            {!isCollapsed && <span className="font-medium">Logout</span>}
-          </button>
+          <div className="relative group">
+            <button
+              onClick={() => setShowLogoutModal(true)}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            >
+              <LogOut size={20} />
+              {!isCollapsed && <span className="font-medium">Logout</span>}
+            </button>
+            
+            {/* Tooltip when collapsed */}
+            {isCollapsed && (
+              <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                Logout
+                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+              </div>
+            )}
+          </div>
         </div>
       </aside>
 
